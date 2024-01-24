@@ -1,6 +1,6 @@
 {
-        "name": "googlecontacts",
-    "label": "Google Contacts Package",
+        "name": "googlepeople",
+    "label": "Google People Package",
     "dependencies": [
         {
             "type": "service",
@@ -46,20 +46,20 @@
         {
             "name": "oauthCallback",
             "label": "OAuth callback",
-            "description": "The OAuth callback to configure in your Google Contacts App",
+            "description": "The OAuth callback to configure in your Google People App",
             "type": "label",
             "value": "config.AUTH_CALLBACK_URL+'/authCallback'"
         },
         {
             "name": "webhooksUrl",
             "label": "Webhooks URL",
-            "description": "The URL to configure in webhooks of your Google Contacts App",
+            "description": "The URL to configure in webhooks of your Google People App",
             "type": "label",
             "value": "config.WEBHOOK_URL"
         },
         {
-            "name": "GOOGLE_CONTACTS_API_BASE_URL",
-            "label": "Google Contacts Api Url",
+            "name": "GOOGLE_PEOPLE_API_BASE_URL",
+            "label": "Google People Api Url",
             "type": "label",
             "value": "https://people.googleapis.com/v1"
         }
@@ -68,12 +68,12 @@
         {
             "label": "Webhook",
             "name": "webhook",
-            "description": "Happens when Google Contacts sends a webhook to the package."
+            "description": "Happens when Google People sends a webhook to the package."
         },
         {
-            "label": "User connected to Google Contacts",
+            "label": "User connected to Google People",
             "name": "userConnected",
-            "description": "Happens when a user successfully connects to Google Contacts."
+            "description": "Happens when a user successfully connects to Google People."
         }
     ],
     "metadata": [

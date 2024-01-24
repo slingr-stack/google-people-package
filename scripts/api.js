@@ -24,8 +24,8 @@ function handleRequestWithRetry(requestFn, options, callbackData, callbacks) {
     try {
         return requestFn(options, callbackData, callbacks);
     } catch (error) {
-        sys.logs.info("[googlecontacts] Handling request "+JSON.stringify(error));
-        dependencies.oauth.functions.refreshToken('googlecontacts:refreshToken');
+        sys.logs.info("[googlepeople] Handling request "+JSON.stringify(error));
+        dependencies.oauth.functions.refreshToken('googlepeople:refreshToken');
         return requestFn(setAuthorization(options), callbackData, callbacks);
     }
 }
@@ -46,8 +46,8 @@ for (let key in httpDependency) {
  * @return {void} The access token refreshed on the storage.
  */
 exports.getAccessToken = function () {
-    sys.logs.info("[googlecontacts] Getting access token from oauth");
-    return dependencies.oauth.functions.connectUser('googlecontacts:userConnected');
+    sys.logs.info("[googlepeople] Getting access token from oauth");
+    return dependencies.oauth.functions.connectUser('googlepeople:userConnected');
 }
 
 /**
@@ -56,8 +56,8 @@ exports.getAccessToken = function () {
  * @return {void} The access token removed on the storage.
  */
 exports.removeAccessToken = function () {
-    sys.logs.info("[googlecontacts] Removing access token from oauth");
-    return dependencies.oauth.functions.disconnectUser('googlecontacts:disconnectUser');
+    sys.logs.info("[googlepeople] Removing access token from oauth");
+    return dependencies.oauth.functions.disconnectUser('googlepeople:disconnectUser');
 }
 
 /****************************************************
@@ -75,7 +75,7 @@ exports.removeAccessToken = function () {
  */
 exports.get = function(path, httpOptions, callbackData, callbacks) {
     let options = checkHttpOptions(path, httpOptions);
-    return httpService.get(googleContacts(options), callbackData, callbacks);
+    return httpService.get(googlePeople(options), callbackData, callbacks);
 };
 
 /**
@@ -89,7 +89,7 @@ exports.get = function(path, httpOptions, callbackData, callbacks) {
  */
 exports.post = function(path, httpOptions, callbackData, callbacks) {
     let options = checkHttpOptions(path, httpOptions);
-    return httpService.post(googleContacts(options), callbackData, callbacks);
+    return httpService.post(googlePeople(options), callbackData, callbacks);
 };
 
 /**
@@ -103,7 +103,7 @@ exports.post = function(path, httpOptions, callbackData, callbacks) {
  */
 exports.put = function(path, httpOptions, callbackData, callbacks) {
     let options = checkHttpOptions(path, httpOptions);
-    return httpService.put(googleContacts(options), callbackData, callbacks);
+    return httpService.put(googlePeople(options), callbackData, callbacks);
 };
 
 /**
@@ -117,7 +117,7 @@ exports.put = function(path, httpOptions, callbackData, callbacks) {
  */
 exports.patch = function(path, httpOptions, callbackData, callbacks) {
     let options = checkHttpOptions(path, httpOptions);
-    return httpService.patch(googleContacts(options), callbackData, callbacks);
+    return httpService.patch(googlePeople(options), callbackData, callbacks);
 };
 
 /**
@@ -131,7 +131,7 @@ exports.patch = function(path, httpOptions, callbackData, callbacks) {
  */
 exports.delete = function(path, httpOptions, callbackData, callbacks) {
     let options = checkHttpOptions(path, httpOptions);
-    return httpService.delete(googleContacts(options), callbackData, callbacks);
+    return httpService.delete(googlePeople(options), callbackData, callbacks);
 };
 
 /**
@@ -145,7 +145,7 @@ exports.delete = function(path, httpOptions, callbackData, callbacks) {
  */
 exports.head = function(path, httpOptions, callbackData, callbacks) {
     let options = checkHttpOptions(path, httpOptions);
-    return httpService.head(googleContacts(options), callbackData, callbacks);
+    return httpService.head(googlePeople(options), callbackData, callbacks);
 };
 
 /**
@@ -159,7 +159,7 @@ exports.head = function(path, httpOptions, callbackData, callbacks) {
  */
 exports.options = function(path, httpOptions, callbackData, callbacks) {
     let options = checkHttpOptions(path, httpOptions);
-    return httpService.options(googleContacts(options), callbackData, callbacks);
+    return httpService.options(googlePeople(options), callbackData, callbacks);
 };
 
 exports.utils = {
@@ -196,10 +196,10 @@ exports.utils = {
      */
     getConfiguration: function (property) {
         if (!property) {
-            sys.logs.debug('[googlecontacts] Get configuration');
+            sys.logs.debug('[googlepeople] Get configuration');
             return JSON.stringify(config.get());
         }
-        sys.logs.debug('[googlecontacts] Get property: '+property);
+        sys.logs.debug('[googlepeople] Get property: '+property);
         return config.get(property);
     },
 
@@ -292,7 +292,7 @@ let stringType = Function.prototype.call.bind(Object.prototype.toString)
  Configurator
  ****************************************************/
 
-let googleContacts = function (options) {
+let googlePeople = function (options) {
     options = options || {};
     options= setApiUri(options);
     options= setRequestHeaders(options);
@@ -306,8 +306,8 @@ let googleContacts = function (options) {
 
 function setApiUri(options) {
     let url = options.path || "";
-    options.url = config.get("GOOGLE_CONTACTS_API_BASE_URL") + url;
-    sys.logs.debug('[googlecontacts] Set url: ' + options.path + "->" + options.url);
+    options.url = config.get("GOOGLE_PEOPLE_API_BASE_URL") + url;
+    sys.logs.debug('[googlepeople] Set url: ' + options.path + "->" + options.url);
     return options;
 }
 
@@ -321,15 +321,15 @@ function setRequestHeaders(options) {
 
 function setAuthorization(options) {
     let authorization = options.authorization || {};
-    sys.logs.debug('[googlecontacts] setting authorization');
+    sys.logs.debug('[googlepeople] setting authorization');
     let pkgConfig = config.get();
-    sys.logs.debug('[googlecontacts] config: '+JSON.stringify(pkgConfig));
-    sys.logs.debug('[googlecontacts] config id: '+JSON.stringify(pkgConfig.id));
+    sys.logs.debug('[googlepeople] config: '+JSON.stringify(pkgConfig));
+    sys.logs.debug('[googlepeople] config id: '+JSON.stringify(pkgConfig.id));
 
     authorization = mergeJSON(authorization, {
         type: "oauth2",
         accessToken: sys.storage.get(
-            'installationInfo-googlecontacts-User-'+sys.context.getCurrentUserRecord().id() + ' - access_token',{decrypt:true}),
+            'installationInfo-googlepeople-User-'+sys.context.getCurrentUserRecord().id() + ' - access_token',{decrypt:true}),
         headerPrefix: "Bearer"
     });
     options.authorization = authorization;

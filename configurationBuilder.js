@@ -7,7 +7,7 @@
 
 let configurationBuilder = function (config) {
     config.oauth = {
-        id: 'installationInfo-googlecontacts-User-'+sys.context.getCurrentUserRecord().id(),
+        id: 'installationInfo-googlepeople-User-'+sys.context.getCurrentUserRecord().id(),
         authUrl: 'https://accounts.google.com/o/oauth2/auth',
         accessTokenUrl: 'https://oauth2.googleapis.com/token',
         clientId: config.clientId,

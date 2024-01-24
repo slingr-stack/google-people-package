@@ -2,23 +2,23 @@
  Listeners
  ****************************************************/
 
-listeners.defaultWebhookGoogleContacts = {
-    label: 'Catch HTTP Google Contacts events',
+listeners.defaultWebhookGooglePeople = {
+    label: 'Catch HTTP Google People events',
     type: 'service',
     options: {
         service: 'http',
         event: 'webhook',
         matching: {
-            path: '/googlecontacts',
+            path: '/googlepeople',
         }
     },
     callback: function(event) {
-        sys.logs.info('Received Google Contacts webhook. Processing and triggering a package event.');
+        sys.logs.info('Received Google People webhook. Processing and triggering a package event.');
         var body = JSON.stringify(event.data.body);
         var params = event.data.parameters;
         if(true) {
             sys.logs.info('Valid webhook received. Triggering event.');
-            sys.events.triggerEvent('googlecontacts:webhook', {
+            sys.events.triggerEvent('googlepeople:webhook', {
                 body: body,
                 params: params
             });
