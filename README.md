@@ -15,6 +15,9 @@
     </tbody>
 </table>
 
+# Important
+The Google Contacts API is now Google People API.
+
 # Overview
 
 The People Package lets you:
