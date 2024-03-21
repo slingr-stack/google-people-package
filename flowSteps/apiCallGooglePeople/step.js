@@ -123,14 +123,14 @@ function stringToObject (obj) {
  ****************************************************/
 
 function setApiUri(options) {
-	let url = options.path || "";
+	var url = options.path || "";
 	options.url = config.get("GOOGLE_PEOPLE_API_BASE_URL") + url;
 	sys.logs.debug('[googlepeople] Set url: ' + options.path + "->" + options.url);
 	return options;
 }
 
 function setRequestHeaders(options) {
-	let headers = options.headers || {};
+	var headers = options.headers || {};
 	headers = mergeJSON(headers, {"Content-Type": "application/json"});
 
 	options.headers = headers;
@@ -138,9 +138,9 @@ function setRequestHeaders(options) {
 }
 
 function setAuthorization(options) {
-	let authorization = options.authorization || {};
+	var authorization = options.authorization || {};
 	sys.logs.debug('[googlepeople] setting authorization');
-	let pkgConfig = config.get();
+	var pkgConfig = config.get();
 	sys.logs.debug('[googlepeople] config: '+JSON.stringify(pkgConfig));
 	sys.logs.debug('[googlepeople] config id: '+JSON.stringify(pkgConfig.id));
 
@@ -156,7 +156,7 @@ function setAuthorization(options) {
 
 function mergeJSON (json1, json2) {
 	var result = {};
-	let key;
+	var key;
 	for (key in json1) {
 		if(json1.hasOwnProperty(key)) result[key] = json1[key];
 	}
