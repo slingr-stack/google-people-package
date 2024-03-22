@@ -84,8 +84,8 @@
         },
         {
             "type": "listener",
-            "namespace": "listeners",
-            "path": "/listeners/listeners.js"
+            "namespace": "webhook",
+            "path": "/listeners/webhook.js"
         },
         {
             "type": "flowStep",
