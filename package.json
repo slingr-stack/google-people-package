@@ -86,11 +86,6 @@
             "type": "listener",
             "namespace": "webhook",
             "path": "/listeners/webhook.js"
-        },
-        {
-            "type": "flowStep",
-            "namespace": "apiCallGooglePeople",
-            "path": "/flowSteps/apiCallGooglePeople"
         }
     ]
 }
